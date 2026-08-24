@@ -12,7 +12,6 @@ Le projet a commencé le 22/08/2026 et il se basait sur un projet existant de mo
 ---
 
 ## 📸 Aperçu
-### Accueil
 ![Capture d'écran](app/assets/Capture_d'écran_DATABASE.png)
 
 ---
