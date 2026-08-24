@@ -1,0 +1,8 @@
+colonnes_GG = ["Id", "Nom", "Jeu", "Image"]
+colonnes_sqlGG = ["CharacterId", "CharacterName", "Game", "CharacterImage"]
+
+colonnes_G = ["Id", "Nom", "Image"]
+colonnes_sqlG = ["CharacterId", "CharacterName", "CharacterImage"]
+
+list_games = ["Gacha Club", "Gacha Life 2", "Gacha Nebula v1.6", "Gacha Plus"]
+liste_all = ["Gacha Games", "Gacha Club", "Gacha Plus", "Gacha Life 2", "Gacha Nebula v1.6"]

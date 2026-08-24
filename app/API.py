@@ -1,0 +1,298 @@
+# Imports de modules externes
+import tkinter as tk
+from tkinter import messagebox, ttk
+import json, pyperclip
+
+# Imports de modules internes
+from app.static.Listes import colonnes_GG, colonnes_G, colonnes_sqlG, colonnes_sqlGG, liste_all
+from app.Fonctions import  build_OC, modifier_élément_ligne_OC, convertir, on_double_clic_secondaire
+from app.Fonctions import trier_colonne, extraire_texte_depuis_json, new_scrollbar
+from app.Fonctions import new_tableau, new_Notebook, remplir_tableau, choisir_couleur
+from app.Fonctions import on_double_clic_principal, definir_police_color
+from app.FontChooserDialog import FontChooserDialog
+from app.GestionDB import DB
+
+class API():
+    """Classe principale du logciel: l'interface."""
+    def __init__(self, root):
+        """
+        Fonction d'initialisation de la classe pour créer l'interface, 
+        récupérer les classes secondaires et les données de parametres.json.
+        """
+        self.root = root
+        self.root.attributes("-fullscreen", True)
+        self.root.title("DATABASE GACHA GAMES")
+        self.DataBase = DB()
+        self.FontChooserDialog = FontChooserDialog
+        self.bg_color = extraire_texte_depuis_json("app/parametres/parametres.json", "bg_color")
+        self.btn_color = extraire_texte_depuis_json("app/parametres/parametres.json", "btn_color")
+        self.police = extraire_texte_depuis_json("app/parametres/parametres.json", "police et taille")
+
+        self.creer_API()
+        self.load()
+
+    def update(self):
+        """
+        Fonction conteneur permettant de mettre à jour 
+        la SQL Database.
+        """
+        self.DataBase.update_db(self.tableauGG, self.tableauGC, self.tableauGP, self.tableauGL2, self.tableauGN16)
+
+    def load(self):
+        """
+        Fonction conteneur pour charger les données 
+        depuis la SQL Database dans les tk.Treeview.
+        """
+        self.DataBase.load_data(self.tableauGG, "GachaGames")
+        self.DataBase.load_data(self.tableauGC, "GachaClub")
+        self.DataBase.load_data(self.tableauGL2, "GachaLife2")
+        self.DataBase.load_data(self.tableauGN16, "GachaNebula16")
+        self.DataBase.load_data(self.tableauGP, "GachaPlus")
+
+    def remplir_tableaux(self):
+        """
+        Fonction conteneur pour remplir les tk.Treeview 
+        après avoir ajouté, modifier ou supprimé un OC.
+        """
+        remplir_tableau(self.tableauGG, self.tableauGC, "Gacha Club",)
+        remplir_tableau(self.tableauGG, self.tableauGL2, "Gacha Life 2")
+        remplir_tableau(self.tableauGG, self.tableauGP, ["Gacha Plus", "Gacha Club"])
+        remplir_tableau(self.tableauGG, self.tableauGN16, "Gacha Nebula v1.6")
+
+    def creer_triof(self, page: tk.Frame):
+        """
+        Fonction permettant de créer un tk.Frame avec 3 tk.Button:
+        -un pour fermer la page
+        -un pour réduire la page
+        -un pour ouvrir un site web.
+        """
+        self.triof = tk.Frame(page, bg=self.bg_color)
+        self.triof.pack(side="right", anchor="nw", pady=2, padx=2)
+        tk.Button(
+            self.triof, text="  ×  ", background="#FF0000", foreground="#000000", 
+            command=self.quit, relief="groove", font=self.police).pack(side="right")
+        tk.Button(
+            self.triof, text="  -  ", background="#FFFFFF", foreground="#000000", 
+            command=lambda: self.reduce(), relief="groove", font=self.police).pack(side="right")
+        tk.Button(
+            self.triof, text="Besoin de convertir ?", bg='#FFFFFF', fg='black', font=self.police, 
+            relief="groove", command=lambda: convertir()).pack(side="right", pady=3, anchor='n')
+        
+    def reinitialiser(self):
+        """
+        Fonction permettant de réinitialiser l'interface 
+        après la personnalisation de la DATABASE.
+        """
+        self.bg_color = extraire_texte_depuis_json("app/parametres/parametres.json", "bg_color")
+        self.police = extraire_texte_depuis_json("app/parametres/parametres.json", "police et taille")
+        self.btn_color = extraire_texte_depuis_json("app/parametres/parametres.json", "btn_color")
+        for widget in self.root.winfo_children():
+            widget.destroy()
+        self.creer_API()
+        self.load()
+
+    def quit(self):
+        """
+        Fonction conteneur permettant de quitter la DATABASE 
+        et de fermer la connection à la SQL Database.
+        """
+        self.DataBase.conn.close()
+        self.root.destroy()
+
+    def reduce(self):
+        """Fonction conteneur permettant de réduire la page."""
+        self.root.iconify()
+
+    def choisir_police(self, parent: tk.Frame):
+        """Fonction conteneur qui ouvre une boîte de 
+        dialogue pour choisir une police.
+        """
+        dialog = self.FontChooserDialog(parent)
+        return dialog.show()
+
+    def personnaliser(self, parent: tk.Frame):
+        """Fonction conteneur pour personnaliser la DATABASE et ensuite réinitialiser"""
+        self.choisir_police(parent)
+        choisir_couleur("bg")
+        choisir_couleur("btn")
+        self.reinitialiser()
+    
+    def creer_API(self):
+        """Fonction principale de la classe API pour créer l'interface"""
+        used_ids = set()
+
+        def ajouter_oc():
+            """
+            Fonction conteneur permettant d'ajouter une ligne (un OC) 
+            dans le tk.Treeview tableau_GG, le tableau principal.
+            """
+            next_id = 1
+            while next_id in used_ids:
+                next_id += 1
+            build_OC(self.pageGG, self.tableauGG, self.bg_color, self.btn_color, self.police, next_id)
+            used_ids.add(next_id)
+            self.remplir_tableaux()
+            self.update()
+
+        def supprimer_OC(tableauGG: ttk.Treeview, tableauGC: ttk.Treeview, 
+                         tableauGN16: ttk.Treeview, tableauGL2: ttk.Treeview, 
+                         tableauGP: ttk.Treeview):
+            """
+            Fonction permettant de supprimer une ligne (un OC) 
+            dans le tk.Treeview tableauGG, le tableau principal et dans 
+            les tk.Treeview tableauGC, tableauGN16, tableauGL2, tableauGP 
+            selon la ligne supprimée dans le tk.Treeview tableauGG.
+            Args:
+                tableauGG: tableau principal Gacha Games.
+                tableauGC: tableau secondaire Gacha Club.
+                tableauGN16: tableau secondaire Gacha Nebula v1.6.
+                tableauGL2: tableau secondaire Gacha Life 2.
+                tableauGP: tableau secondaire Gacha Plus.
+            """
+            ligne_select1 = tableauGG.selection()
+            if len(tableauGG.item(ligne_select1, "values")) == 5:
+                a, _, _, _, _ = tableauGG.item(ligne_select1, "values")
+            elif len(tableauGG.item(ligne_select1, "values")) == 6:
+                a, _, _, _, _, _ = tableauGG.item(ligne_select1, "values")
+            if not ligne_select1:
+                messagebox.showerror("Réessaye", "Sélectionne un OC à supprimer.", icon='error')
+                return
+            
+            response = messagebox.askyesno("Mais ?...", "Veux-tu vraiment supprimer cet OC ?", icon="question")
+
+            if response == True:
+                tableauGG.delete(ligne_select1)
+                for item in tableauGC.get_children():
+                    values = tableauGC.item(item, "values")
+                    if values[0] == a:
+                        tableauGC.delete(item)
+                for item in tableauGN16.get_children():
+                    values = tableauGN16.item(item, "values")
+                    if values[0] == a:
+                        tableauGN16.delete(item)
+                for item in tableauGL2.get_children():
+                    values = tableauGL2.item(item, "values")
+                    if values[0] == a:
+                        tableauGL2.delete(item)
+                for item in tableauGP.get_children():
+                    values = tableauGP.item(item, "values")
+                    if values[0] == a:
+                        tableauGP.delete(item)
+                with open("app/fichier_code/codes.json", "r", encoding="utf-8") as f:
+                    codes = json.load(f)
+                del codes[str(values[0])]
+                with open("app/fichier_code/codes.json", "w", encoding="utf-8") as f:
+                    json.dump(codes, f, ensure_ascii=False, indent=4)
+                used_ids.discard(a)
+
+        def supprimer_oc():
+            """
+            Fonction conteneur permettant de:
+            -supprimer une ligne (un OC) dans le tk.Treeview tableauGG, 
+            le tableau principal et dans les tk.Treeview tableauGC, 
+            tableauGN16, tableauGL2, tableauGP selon la ligne supprimée dans le tk.Treeview tableauGG
+            -(re)remplir les tk.Treeview tableauGC, tableauGN16, tableauGL2, tableauGP
+            -mettre à jour la SQL Database.
+            """
+            supprimer_OC(self.tableauGG, self.tableauGC, self.tableauGN16, self.tableauGL2, self.tableauGP)
+            self.remplir_tableaux()
+            self.update()
+
+        def modifier_élément_oc():
+            """
+            Fonction conteneur permettant de:
+            -modifier une ligne (un OC) dans le tk.Treeview tableauGG, 
+            le tableau principal et dans les tk.Treeview tableauGC, 
+            tableauGN16, tableauGL2, tableauGP selon la ligne supprimée dans le tk.Treeview tableauGG
+            -(re)remplir les tk.Treeview tableauGC, tableauGN16, tableauGL2, tableauGP
+            -mettre à jour la SQL Database.
+            """
+            modifier_élément_ligne_OC(self.tableauGG, self.Notebook, self.bg_color, self.btn_color, self.police)
+            self.remplir_tableaux()
+            self.update()
+
+        def copier_code(tableau: ttk.Treeview):
+            """
+            Fonction permettant de copier le code de l'OC (la ligne) sélectionné.
+            Args:
+                tableau: tableau depuis lequel l'OC (la ligne) a été sélectionné.
+            """
+            ligne_select = tableau.selection()
+            if len(tableau.item(ligne_select, "values")) == 4:
+                a, _, _, _ = tableau.item(ligne_select, "values")
+            elif len(tableau.item(ligne_select, "values")) == 5:
+                a, _, _, _, _ = tableau.item(ligne_select, "values")
+            if not ligne_select:
+                messagebox.showerror("Réessaye", "Sélectionne un OC dont il faut copier le code.", icon='error')
+                return     
+            with open("app/fichier_code/codes.json", "r", encoding="utf-8") as f:
+                codes = json.load(f)
+            code = codes.get(a)
+            if code:
+                pyperclip.copy(code)
+                messagebox.showinfo("Yeah !", "Code offline de l'OC copié !", icon='info')
+
+        self.pageBG = tk.Canvas(self.root, bg=self.bg_color)
+        self.pageBG.pack(fill='both', expand=True)
+
+        self.creer_triof(self.pageBG)
+
+        tk.Label(self.pageBG, text="DATABASE GACHA GAMES", bg=self.bg_color, font=self.police).pack(side=tk.TOP, pady=5)
+
+        self.page_conteneur = tk.Frame(self.pageBG, bg=self.bg_color)
+        self.page_conteneur.pack(fill='y', expand=True, anchor='w', side='left')
+        
+        self.Notebook, self.pages = new_Notebook(self.page_conteneur, liste_all, self.bg_color, self.btn_color, self.police)
+
+        self.pageGG = self.pages["Gacha Games"]
+        self.pageGC = self.pages["Gacha Club"]
+        self.pageGP = self.pages["Gacha Plus"]
+        self.pageGL2 = self.pages["Gacha Life 2"]
+        self.pageGN16 = self.pages["Gacha Nebula v1.6"]
+
+        self.tableauGG = new_tableau(self.pageGG, colonnes_GG, colonnes_sqlGG, 200, trier_colonne)
+        self.tableauGG.bind("<Double-1>", lambda event: on_double_clic_principal(self.tableauGG, self.ImageOC))
+        self.tableauGC = new_tableau(self.pageGC, colonnes_G, colonnes_sqlG, 230, trier_colonne)
+        self.tableauGC.bind("<Double-1>", lambda event: on_double_clic_secondaire(self.tableauGC,self.ImageOC))
+        self.tableauGP = new_tableau(self.pageGP,  colonnes_G, colonnes_sqlG, 230, trier_colonne)
+        self.tableauGP.bind("<Double-1>", lambda event: on_double_clic_secondaire(self.tableauGP, self.ImageOC))
+        self.tableauGL2 = new_tableau(self.pageGL2, colonnes_G, colonnes_sqlG, 230, trier_colonne)
+        self.tableauGL2.bind("<Double-1>", lambda event: on_double_clic_secondaire(self.tableauGL2, self.ImageOC))
+        self.tableauGN16 = new_tableau(self.pageGN16, colonnes_G, colonnes_sqlG, 230, trier_colonne)
+        self.tableauGN16.bind("<Double-1>", lambda event: on_double_clic_secondaire(self.tableauGN16, self.ImageOC))
+        
+        new_scrollbar(self.tableauGG)
+        new_scrollbar(self.tableauGC)
+        new_scrollbar(self.tableauGP)
+        new_scrollbar(self.tableauGL2)
+        new_scrollbar(self.tableauGN16)
+
+        self.FrameBtn = tk.Frame(self.pageGG, bg=self.bg_color)
+        self.FrameBtn.pack(side="top")
+
+        tk.Button(
+            self.FrameBtn, text="Ajouter un OC", bg=self.btn_color, fg=definir_police_color(self.btn_color), 
+            font=self.police, command=ajouter_oc).pack(side="left", padx=3, pady=3, anchor='n')
+        tk.Button(
+            self.FrameBtn, text="Supprimer un OC", bg=self.btn_color, fg=definir_police_color(self.btn_color), 
+            font=self.police,command=supprimer_oc).pack(side="left", padx=3, pady=3, anchor='n')
+        tk.Button(
+            self.FrameBtn, text="Modifier un OC", bg=self.btn_color, fg=definir_police_color(self.btn_color), 
+            font=self.police, command=modifier_élément_oc).pack(
+                side="left",  padx=3, pady=3, anchor='n')
+        tk.Button(
+            self.FrameBtn, text="Personnaliser DATABASE", bg=self.btn_color, fg=definir_police_color(self.btn_color), 
+            font=self.police, command=lambda: self.personnaliser(self.pageGG)
+            ).pack(side="left",  padx=3, pady=3, anchor='n')
+
+
+        self.page_conteneur2 = tk.Frame(self.pageBG, bg=self.bg_color)
+        self.page_conteneur2.place(x=1510, y=50, anchor='ne')  
+        self.ImageOC = tk.LabelFrame(
+            self.page_conteneur2, text="Image de l'OC sélectionné", font=self.police, height=687, width=620, bg=self.bg_color,
+            borderwidth=3, border=3, fg=definir_police_color(self.bg_color))
+        self.ImageOC.pack(side='top')
+        tk.Button(
+            self.page_conteneur2, text="Copier le code", bg=self.btn_color, fg=definir_police_color(self.btn_color), 
+            font=self.police, command=lambda: copier_code(self.tableauGG)
+            ).pack(side="bottom", padx=3, pady=3, anchor='center')
