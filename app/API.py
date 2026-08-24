@@ -1,7 +1,7 @@
 # Imports de modules externes
 import tkinter as tk
 from tkinter import messagebox, ttk
-import json, pyperclip
+import json, pyperclip, os
 
 # Imports de modules internes
 from app.static.Listes import colonnes_GG, colonnes_G, colonnes_sqlG, colonnes_sqlGG, liste_all
@@ -178,10 +178,11 @@ class API():
                     values = tableauGP.item(item, "values")
                     if values[0] == a:
                         tableauGP.delete(item)
-                with open("app/fichier_code/codes.json", "r", encoding="utf-8") as f:
+                path = os.path.join(os.path.dirname(__file__), "fichier_code", "codes.json")
+                with open(path, "r", encoding="utf-8") as f:
                     codes = json.load(f)
                 del codes[str(values[0])]
-                with open("app/fichier_code/codes.json", "w", encoding="utf-8") as f:
+                with open(path, "w", encoding="utf-8") as f:
                     json.dump(codes, f, ensure_ascii=False, indent=4)
                 used_ids.discard(a)
 
@@ -224,8 +225,9 @@ class API():
                 a, _, _, _, _ = tableau.item(ligne_select, "values")
             if not ligne_select:
                 messagebox.showerror("Réessaye", "Sélectionne un OC dont il faut copier le code.", icon='error')
-                return     
-            with open("app/fichier_code/codes.json", "r", encoding="utf-8") as f:
+                return   
+            path = os.path.join(os.path.dirname(__file__), "fichier_code", "codes.json")  
+            with open(path, "r", encoding="utf-8") as f:
                 codes = json.load(f)
             code = codes.get(a)
             if code:
