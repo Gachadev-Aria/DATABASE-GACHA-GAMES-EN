@@ -1,7 +1,7 @@
 # Importations externes
 import tkinter as tk
 from tkinter import ttk, font
-import json
+import json, os
 
 class FontChooserDialog:
     """
