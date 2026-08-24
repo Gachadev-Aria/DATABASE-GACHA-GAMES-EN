@@ -19,7 +19,9 @@ class FontChooserDialog:
         self.top.transient(parent)
         self.top.grab_set()
 
-        with open("app/parametres/parametres.json", "r", encoding="utf-8") as f:
+        self.parametres_path = os.path.join(os.path.dirname(__file__), "parametres", "parametres.json")
+
+        with open(self.parametres_path, "r", encoding="utf-8") as f:
             self.data = json.load(f)
 
         self.police = self.data.get('police et taille')
