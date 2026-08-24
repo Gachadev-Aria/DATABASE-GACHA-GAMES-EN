@@ -12,7 +12,9 @@ from random import choice
 from app.static.Listes import list_games, colonnes_GG, colonnes_sqlGG
 
 
-with open("app/fichier_code/codes.json", "r", encoding="utf-8") as f:
+codes_path = os.path.join(os.path.dirname(__file__), "fichier_code", "codes.json")
+
+with open(codes_path, "r", encoding="utf-8") as f:
     codes = json.load(f)
 
 
@@ -295,7 +297,10 @@ def build_OC(page: tk.Frame, tableauGG: ttk.Treeview, bg_color: str, btn_color: 
             return None
 
         codes[str(ID)] = code_oc.strip()
-        with open("app/fichier_code/codes.json", "w", encoding="utf-8") as f:
+
+        codes_path = os.path.join(os.path.dirname(__file__), "fichier_code", "codes.json")
+
+        with open(codes_path, "r", encoding="utf-8") as f:
             json.dump(codes, f, ensure_ascii=False, indent=4)   
 
         chemin = filedialog.askopenfilename(title="Choisis l'image de l'OC")
@@ -452,7 +457,7 @@ def choisir_couleur(type: str):
     elif type == 'btn':
         couleur = colorchooser.askcolor(title="Choisir la couleur des boutons")
     if couleur[1]:
-        fichier_config = "app/parametres/parametres.json"
+        fichier_config = os.path.join(os.path.dirname(__file__), "parametres", "parametres.json")
         try:
             with open(fichier_config, "r", encoding="utf-8") as f:
                 data = json.load(f)
