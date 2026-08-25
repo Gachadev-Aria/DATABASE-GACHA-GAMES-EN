@@ -44,6 +44,11 @@ Ce projet a été développé avec l'aide d'outils d'intelligence artificielle (
 
 Prérequis:
 - python
+- tkinter
+- color-contrast
+- colour
+- pathlib
+- pyperclip
 
 1. Cloner le dépôt :
      ```bash
