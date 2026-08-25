@@ -271,7 +271,7 @@ def Top_level_modifier_oc(page: tk.Frame, bg_color: str, btn_color: str, police:
     if result == {}:
         return None
     else:
-        return result
+        return result["new_info"]
 
 def creer_canvas(chemin: str, page_parent: tk.LabelFrame):
     """
