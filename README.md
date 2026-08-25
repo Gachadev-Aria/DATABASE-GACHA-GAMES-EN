@@ -2,10 +2,10 @@
 
 ## Description: 
 Un logiciel permettant de stocker les OC des jeux:
--Gache Club
--Gacha Plus
--Gacha Life 2
--Gacha Nebula v1.6
+- Gache Club
+- Gacha Plus
+- Gacha Life 2
+- Gacha Nebula v1.6
 
 Le projet a commencé le 22/08/2026 et il se basait sur un projet existant de mon ordinateur.
 
@@ -44,7 +44,6 @@ Ce projet a été développé avec l'aide d'outils d'intelligence artificielle (
 
 Prérequis:
 - python
-- pyinstaller
 
 1. Cloner le dépôt :
      ```bash
