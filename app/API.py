@@ -24,9 +24,10 @@ class API():
         self.root.title("DATABASE GACHA GAMES")
         self.DataBase = DB()
         self.FontChooserDialog = FontChooserDialog
-        self.bg_color = extraire_texte_depuis_json("app/parametres/parametres.json", "bg_color")
-        self.btn_color = extraire_texte_depuis_json("app/parametres/parametres.json", "btn_color")
-        self.police = extraire_texte_depuis_json("app/parametres/parametres.json", "police et taille")
+        self.path1 = os.path.join(os.path.dirname(__file__), "parametres", "parametres.json")
+        self.bg_color = extraire_texte_depuis_json(self.path1, "bg_color")
+        self.btn_color = extraire_texte_depuis_json(self.path1, "btn_color")
+        self.police = extraire_texte_depuis_json(self.path1, "police et taille")
 
         self.creer_API()
         self.load()
@@ -83,9 +84,9 @@ class API():
         Fonction permettant de réinitialiser l'interface 
         après la personnalisation de la DATABASE.
         """
-        self.bg_color = extraire_texte_depuis_json("app/parametres/parametres.json", "bg_color")
-        self.police = extraire_texte_depuis_json("app/parametres/parametres.json", "police et taille")
-        self.btn_color = extraire_texte_depuis_json("app/parametres/parametres.json", "btn_color")
+        self.bg_color = extraire_texte_depuis_json(self.path1, "bg_color")
+        self.btn_color = extraire_texte_depuis_json(self.path1, "btn_color")
+        self.police = extraire_texte_depuis_json(self.path1, "police et taille")
         for widget in self.root.winfo_children():
             widget.destroy()
         self.creer_API()
