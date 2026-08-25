@@ -17,7 +17,7 @@ Le projet a commencé le 22/08/2026 et il se basait sur un projet existant de mo
 ---
 
 ## 🚀 Fonctionnalités
-- ✅ Ajout d'OC de différentes application
+- ✅ Ajout d'OC de différentes applications
 - ✅ Affichage de l'OC
 - ✅ Possibilité de copier le code stocké
 
