@@ -54,8 +54,8 @@ Prérequis:
 1. Cloner le dépôt :
      ```bash
      git clone https://github.com/Gachadev-Aria/Database-Gacha-Games-FR.git
-  Ou:
-  Télécharger le [fichier zip.](https://github.com/Gachadev-Aria/Database-Gacha-Games-FR/archive/refs/heads/main.zip)
+Ou:
+     Télécharger le [fichier zip.](https://github.com/Gachadev-Aria/Database-Gacha-Games-FR/archive/refs/heads/main.zip)
   
 2. Dans la console de votre ordi:
     ```bash
