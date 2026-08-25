@@ -219,7 +219,7 @@ def Top_level_modifier_oc(page: tk.Frame, bg_color: str, btn_color: str, police:
             nom_oc_entry.pack(padx=10, pady=5)
 
             def save_and_close():
-                result["nom"] = nom_oc_var.get()
+                result["new_info"] = nom_oc_var.get()
                 dialog.destroy()
 
         elif choix == 2:
@@ -233,7 +233,7 @@ def Top_level_modifier_oc(page: tk.Frame, bg_color: str, btn_color: str, police:
             liste.pack(fill="x", padx=10, pady=5)
 
             def save_and_close():
-                result["new_info"] = nom_oc_var.get()
+                result["new_info"] = liste.get(tk.ACTIVE) if liste.curselection() else ""
                 dialog.destroy()
 
         elif choix == 4:
@@ -254,12 +254,12 @@ def Top_level_modifier_oc(page: tk.Frame, bg_color: str, btn_color: str, police:
         button_frame.pack(fill="x", pady=10)
 
         ok_btn = tk.Button(
-            button_frame, text="Valider", bg=btn_color, fg=definir_police_color(bg_color), 
+            button_frame, text="Valider", bg=btn_color, fg=definir_police_color(btn_color), 
             font=police, command=save_and_close)
         ok_btn.pack(side=tk.RIGHT, padx=5)
     
         cancel_btn = tk.Button(
-            button_frame, text="Annuler", bg=btn_color, fg=definir_police_color(bg_color), 
+            button_frame, text="Annuler", bg=btn_color, fg=definir_police_color(btn_color), 
             font=police, command=dialog.destroy)
         cancel_btn.pack(side=tk.RIGHT, padx=5)
     
