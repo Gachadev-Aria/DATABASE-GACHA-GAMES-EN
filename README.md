@@ -1,7 +1,7 @@
 # Database Gacha Games FR
 
 ## Description: 
-Un logiciel permettant de stocker les OC des jeux:
+Un logiciel permettant de sauvegarder les OC des jeux pour en garder une trace:
 - Gache Club
 - Gacha Plus
 - Gacha Life 2
