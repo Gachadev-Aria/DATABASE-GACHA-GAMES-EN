@@ -224,7 +224,7 @@ def Top_level_modifier_oc(page: tk.Frame, bg_color: str, btn_color: str, police:
 
         elif choix == 2:
             dialog.title("Modifier l'origine de l'OC")
-            dialog.geometry("600x200")
+            dialog.geometry("600x400")
             titre_choix = tk.LabelFrame(main_frame, text="Jeux", font=police, bg=bg_color)
             titre_choix.pack(fill="x", pady=5)
             liste = tk.Listbox(titre_choix, height=4, selectmode=tk.SINGLE, font=police)
@@ -238,7 +238,7 @@ def Top_level_modifier_oc(page: tk.Frame, bg_color: str, btn_color: str, police:
 
         elif choix == 4:
             dialog.title("Modifier le code de l'OC")
-            dialog.geometry("600x400")
+            dialog.geometry("600x600")
             titre_champ_texte = tk.LabelFrame(
                 main_frame, text="Nouveau code de l'OC", font=police, bg=bg_color)
             titre_champ_texte.pack(fill="both", expand=True, pady=5)
