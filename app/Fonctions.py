@@ -32,7 +32,7 @@ def new_scrollbar(tableau: ttk.Treeview):
     tableau.configure(yscroll=scrollbar.set)
     return scrollbar
 
-def new_tableau(page: tk.Frame, colonnes: list[str], colonnesSQL: list[str], a: int, fct: function):
+def new_tableau(page: tk.Frame, colonnes: list[str], colonnesSQL: list[str], a: int, fct):
     """
     Fonction conteneur permettant de créer un ttk.Treview dans 
     le tk.Frame du tk.Notebook.
