@@ -1,4 +1,4 @@
-# Database Gacha Games Repo
+# Database Gacha Games FR
 
 ## Description: 
 Un logiciel permettant de stocker les OC des jeux:
