@@ -32,18 +32,36 @@ def new_scrollbar(tableau: ttk.Treeview):
     tableau.configure(yscroll=scrollbar.set)
     return scrollbar
 
-def new_tableau(page: tk.Frame, colonnes: list[str], colonnesSQL: list[str], a: int, fct):
+def new_tableau(page: tk.Frame, police: tuple[str, int], bg_color: str, colonnes: list[str], colonnesSQL: list[str], a: int, fct):
     """
     Fonction conteneur permettant de créer un ttk.Treview dans 
     le tk.Frame du tk.Notebook.
     Args:
         page: page dans lequel la tableau sera placé.
+        police: famille et taille de police.
+        bg_color: couleur de l'arrière-plan de l'interface.
         colonne: liste des noms des en-têtes pour le tableau.
         colonneSQL: liste des noms des colonnes des tables SQL secondaires.
         a: ipady du tableau.
         fct: fonction liée aux en-têtes du tableau.
     """
     tableau = ttk.Treeview(page, columns=colonnesSQL, show="headings")
+    style = ttk.Style()
+    style.configure(
+        "Treeview.Heading",
+        background="white",  
+        foreground="black",   
+        font=police,  
+        rowheight=40, 
+        borderwidth=1, relief="solid"        
+        )
+    
+    style.map(
+        "Treeview",
+        background=[("selected", bg_color)],  # Couleur de fond des lignes sélectionnées
+        foreground=[("selected", definir_police_color(bg_color))]    # Couleur du texte des lignes sélectionnées
+    )
+    
     for col1, col2 in zip(colonnes, colonnesSQL):
         tableau.heading(col2, text=col1, command= lambda: fct(tableau, True))
         tableau.column(col2, width=len(col1)*2, anchor=tk.CENTER)
@@ -62,18 +80,43 @@ def new_Notebook(parent: tk.Frame, pages_names: list[str], bg_color: str, btn_co
     """
     Notebook = ttk.Notebook(parent)
     style = ttk.Style()
+    style.theme_use("clam") 
     style.configure("TNotebook", background=bg_color, padding=[10, 5])
-    style.map("TNotebook.Tab",
-        background=[("selected", bg_color), ("active", bg_color)])
-    style.configure("TNotebook.Tab",
-        borderwidth=3, relief="solid", font=(police), padding=[10, 5], bg=btn_color)
+    
+    style.configure(
+        "TNotebook.Tab",
+        background=btn_color,  
+        foreground=definir_police_color(btn_color),   
+        font=police,           
+        padding=[10, 5],       
+        borderwidth=2,         
+        relief="solid",        
+        lightcolor=bg_color,  
+        darkcolor=btn_color    
+        )
+
+    style.map(
+        "TNotebook.Tab",
+        background=[("selected", bg_color)], 
+        foreground=[("selected", definir_police_color(btn_color))],  
+        relief=[("selected", "groove")]          
+    )
+
+    style.map(
+        "TNotebook.Tab",
+        background=[("active", btn_color)],
+        relief=[("active", "raised")]         
+        )
+    
+    style.configure("TFrame", background=bg_color)
+
+    Notebook.pack(fill='both', pady=10, padx=10)
 
     pages = {}
     for name in pages_names:
-        page = tk.Frame(Notebook, bg=bg_color)
+        page = ttk.Frame(Notebook)
         Notebook.add(page, text=name)
         pages[name] = page
-    Notebook.pack(fill='y', pady=10, padx=10, anchor='w', side='top')
 
     return Notebook, pages
 
@@ -129,12 +172,12 @@ def Top_level_build_oc(page: tk.Frame, bg_color: str, btn_color: str, police: tu
         dialog.destroy()
 
     ok_btn = tk.Button(
-        button_frame, text="Valider", bg=btn_color, fg=definir_police_color(bg_color), 
+        button_frame, text="Valider", bg=btn_color, fg=definir_police_color(btn_color), 
         font=police, command=save_and_close)
     ok_btn.pack(side=tk.RIGHT, padx=5)
 
     cancel_btn = tk.Button(
-        button_frame, text="Annuler", bg=btn_color, fg=definir_police_color(bg_color), 
+        button_frame, text="Annuler", bg=btn_color, fg=definir_police_color(btn_color), 
         font=police, command=dialog.destroy)
     cancel_btn.pack(side=tk.RIGHT, padx=5)
 
@@ -300,7 +343,7 @@ def build_OC(page: tk.Frame, tableauGG: ttk.Treeview, bg_color: str, btn_color: 
 
         codes_path = os.path.join(os.path.dirname(__file__), "fichier_code", "codes.json")
 
-        with open(codes_path, "r", encoding="utf-8") as f:
+        with open(codes_path, "w", encoding="utf-8") as f:
             json.dump(codes, f, ensure_ascii=False, indent=4)   
 
         chemin = filedialog.askopenfilename(title="Choisis l'image de l'OC")
