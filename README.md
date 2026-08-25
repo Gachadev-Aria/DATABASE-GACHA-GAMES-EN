@@ -50,18 +50,34 @@ Prérequis:
 - colour
 - pathlib
 - pyperclip
+- pyinstaller
 
+### Solution 1:
 1. Cloner le dépôt :
      ```bash
      git clone https://github.com/Gachadev-Aria/Database-Gacha-Games-FR.git
 Ou:
-     Télécharger le [fichier zip.](https://github.com/Gachadev-Aria/Database-Gacha-Games-FR/archive/refs/heads/main.zip)
+     Télécharger le [fichier ZIP.](https://github.com/Gachadev-Aria/Database-Gacha-Games-FR/archive/refs/heads/main.zip)
   
 2. Dans la console de votre ordi:
     ```bash
     cd Database-Gacha-Games-FR
     python -mvenv venv
     python run.py
+Ou 
+     Ouvrir run.py avec un logiciel de code et l'executer (Exemple: VS Code)
+3. Puis commencez !
+
+### Solution 2, Créer un fichier exe
+1. Cloner le dépôt ou télécharger le fichier ZIP.
+2. Dans la console de votre ordi:
+   ```bash
+   cd Database-Gacha-Games-FR
+   python -m PyInstaller --onefile --windowed --add-data "app/fichier_code;app/fichier_code" --add-data "app/parametres;app/parametres" --add-data "app/static;app/static"  --add-data "app/database;app/database" run.py
+3. Ouvrer /dist/run
+4. Puis commencer !
+
+
 
 ---
 ## 📧 Contact
