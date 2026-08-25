@@ -234,7 +234,7 @@ class API():
                 pyperclip.copy(code)
                 messagebox.showinfo("Yeah !", "Code offline de l'OC copié !", icon='info')
 
-        self.pageBG = tk.Canvas(self.root, bg=self.bg_color)
+        self.pageBG = tk.Canvas(self.root, background=self.bg_color)
         self.pageBG.pack(fill='both', expand=True)
 
         self.creer_triof(self.pageBG)
