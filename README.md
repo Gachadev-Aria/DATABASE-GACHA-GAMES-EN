@@ -40,6 +40,24 @@ Ce projet a été développé avec l'aide d'outils d'intelligence artificielle (
 - la résolution d'erreurs non comprises
 - des fonctionnalités spécifiques 
 
+## Utilisation
+
+Prérequis:
+- python
+- pyinstaller
+
+1. Cloner le dépôt :
+     ```bash
+     git clone https://github.com/Gachadev-Aria/Database-Gacha-Games-FR.git
+  Ou:
+  Télécharger le [fichier zip.](https://github.com/Gachadev-Aria/Database-Gacha-Games-FR/archive/refs/heads/main.zip)
+  
+2. Dans la console de votre ordi:
+    ```bash
+    cd Database-Gacha-Games-FR
+    python -mvenv venv
+    python run.py
+
 ---
 ## 📧 Contact
 
