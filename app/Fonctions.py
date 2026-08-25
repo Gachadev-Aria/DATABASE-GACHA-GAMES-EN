@@ -264,14 +264,18 @@ def Top_level_modifier_oc(page: tk.Frame, bg_color: str, btn_color: str, police:
         cancel_btn.pack(side=tk.RIGHT, padx=5)
     
         page.wait_window(dialog)
+
+        if result == {}:
+            return None
+        else:
+            return result["new_info"]
     
     else:
         result = filedialog.askopenfilename(title="Choisissez la nouvelle image")
-
-    if result == {}:
-        return None
-    else:
-        return result["new_info"]
+        if result == {}:
+            return None
+        else: 
+            return result
 
 def creer_canvas(chemin: str, page_parent: tk.LabelFrame):
     """
