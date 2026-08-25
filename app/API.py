@@ -85,8 +85,8 @@ class API():
         après la personnalisation de la DATABASE.
         """
         self.bg_color = extraire_texte_depuis_json(self.path1, "bg_color")
-        self.btn_color = extraire_texte_depuis_json(self.path1, "btn_color")
         self.police = extraire_texte_depuis_json(self.path1, "police et taille")
+        self.btn_color = extraire_texte_depuis_json(self.path1, "btn_color")
         for widget in self.root.winfo_children():
             widget.destroy()
         self.creer_API()
@@ -253,15 +253,15 @@ class API():
         self.pageGL2 = self.pages["Gacha Life 2"]
         self.pageGN16 = self.pages["Gacha Nebula v1.6"]
 
-        self.tableauGG = new_tableau(self.pageGG, colonnes_GG, colonnes_sqlGG, 200, trier_colonne)
+        self.tableauGG = new_tableau(self.pageGG, self.police, self.bg_color, colonnes_GG, colonnes_sqlGG, 200, trier_colonne)
         self.tableauGG.bind("<Double-1>", lambda event: on_double_clic_principal(self.tableauGG, self.ImageOC))
-        self.tableauGC = new_tableau(self.pageGC, colonnes_G, colonnes_sqlG, 230, trier_colonne)
+        self.tableauGC = new_tableau(self.pageGC, self.police, self.bg_color, colonnes_G, colonnes_sqlG, 230, trier_colonne)
         self.tableauGC.bind("<Double-1>", lambda event: on_double_clic_secondaire(self.tableauGC,self.ImageOC))
-        self.tableauGP = new_tableau(self.pageGP,  colonnes_G, colonnes_sqlG, 230, trier_colonne)
+        self.tableauGP = new_tableau(self.pageGP, self.police, self.bg_color, colonnes_G, colonnes_sqlG, 230, trier_colonne)
         self.tableauGP.bind("<Double-1>", lambda event: on_double_clic_secondaire(self.tableauGP, self.ImageOC))
-        self.tableauGL2 = new_tableau(self.pageGL2, colonnes_G, colonnes_sqlG, 230, trier_colonne)
+        self.tableauGL2 = new_tableau(self.pageGL2, self.police, self.bg_color, colonnes_G, colonnes_sqlG, 230, trier_colonne)
         self.tableauGL2.bind("<Double-1>", lambda event: on_double_clic_secondaire(self.tableauGL2, self.ImageOC))
-        self.tableauGN16 = new_tableau(self.pageGN16, colonnes_G, colonnes_sqlG, 230, trier_colonne)
+        self.tableauGN16 = new_tableau(self.pageGN16, self.police, self.bg_color, colonnes_G, colonnes_sqlG, 230, trier_colonne)
         self.tableauGN16.bind("<Double-1>", lambda event: on_double_clic_secondaire(self.tableauGN16, self.ImageOC))
         
         new_scrollbar(self.tableauGG)
