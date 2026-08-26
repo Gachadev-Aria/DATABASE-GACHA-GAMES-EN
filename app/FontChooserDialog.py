@@ -15,7 +15,7 @@ class FontChooserDialog:
         self.parent = parent
         self.top = tk.Toplevel(parent)
         self.top.title("Personnaliser la police")
-        self.top.geometry("400x300")
+        self.top.geometry("400x350")
         self.top.transient(parent)
         self.top.grab_set()
 
@@ -37,7 +37,7 @@ class FontChooserDialog:
     def create_widgets(self):
         """Fonction qui créer les widgets pour choisir la police."""
         # Frame pour la famille de police
-        family_frame = ttk.LabelFrame(self.top, text="Famille de police")
+        family_frame = tk.LabelFrame(self.top, text="Famille de police")
         family_frame.pack(fill="x", padx=10, pady=5)
 
         self.family_combobox = ttk.Combobox(family_frame, textvariable=self.font_family,
@@ -45,22 +45,24 @@ class FontChooserDialog:
         self.family_combobox.pack(fill="x", padx=5, pady=5)
 
         # Frame pour la taille de police
-        size_frame = ttk.LabelFrame(self.top, text="Taille")
+        size_frame = tk.LabelFrame(self.top, text="Taille")
         size_frame.pack(fill="x", padx=10, pady=5)
 
         self.size_spinbox = ttk.Spinbox(size_frame, from_=8, to=72, textvariable=self.font_size)
         self.size_spinbox.pack(fill="x", padx=5, pady=5)
 
         # Aperçu de la police
-        preview_frame = ttk.LabelFrame(self.top, text="Aperçu")
+        preview_frame = tk.LabelFrame(self.top, text="Aperçu")
         preview_frame.pack(fill="x", padx=10, pady=5)
 
-        self.preview_label = ttk.Label(preview_frame, text="Ai-je versé cinq yoghourts aux\n kiwis sur de la pizza flambée ? \n - ×",
+        self.preview_label = tk.Label(
+            preview_frame, 
+            text="Ai-je versé cinq yoghourts aux\n kiwis sur de la pizza flambée ? \n - ×",
             font=self.police)
         self.preview_label.pack(pady=10)
 
         # Boutons de validation
-        button_frame = ttk.Frame(self.top)
+        button_frame = tk.Frame(self.top)
         button_frame.pack(fill="x", padx=10, pady=10)
 
         ttk.Button(button_frame, text="OK", command=self.on_ok).pack(side="right", padx=5)
