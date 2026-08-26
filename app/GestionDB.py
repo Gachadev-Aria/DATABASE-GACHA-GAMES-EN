@@ -18,37 +18,18 @@ class DB():
             DATE TEXT DEFAULT CURRENT_DATE
         );""")
 
-        self.cursor.execute("""
-        CREATE TABLE IF NOT EXISTS GachaClub (
-            CharacterId INTEGER PRIMARY KEY,
-            CharacterName TEXT,
-            CharacterImage TEXT,
-            DATE TEXT DEFAULT CURRENT_DATE
-        );""")
-
-        self.cursor.execute("""
-        CREATE TABLE IF NOT EXISTS GachaPlus (
-            CharacterId INTEGER PRIMARY KEY,
-            CharacterName TEXT,
-            CharacterImage TEXT,
-            DATE TEXT DEFAULT CURRENT_DATE
-        );""")
-
-        self.cursor.execute("""
-        CREATE TABLE IF NOT EXISTS GachaLife2 (
-            CharacterId INTEGER PRIMARY KEY,
-            CharacterName TEXT,
-            CharacterImage TEXT,
-            DATE TEXT DEFAULT CURRENT_DATE
-        );""")
-
-        self.cursor.execute("""
-        CREATE TABLE IF NOT EXISTS GachaNebula16 (
-            CharacterId INTEGER PRIMARY KEY,
-            CharacterName TEXT,
-            CharacterImage TEXT,
-            DATE TEXT DEFAULT CURRENT_DATE
-        )""")
+        self.tables = ["GachaClub", "GachaLife2", "GachaNebula16", 
+                  "GachaPlus", "GachaLuminal", "GachaRealms", 
+                  "GachaUltra", "GachaLife"]
+        
+        for table in self.tables:
+            self.cursor.execute(f"""
+            CREATE TABLE IF NOT EXISTS {table} (
+                CharacterId INTEGER PRIMARY KEY,
+                CharacterName TEXT,
+                CharacterImage TEXT,
+                DATE TEXT DEFAULT CURRENT_DATE
+            );""")
 
         self.conn.commit()
     
@@ -90,116 +71,60 @@ class DB():
                 """, values)
         self.conn.commit()
 
-    def update_db2(self, tableauGC: ttk.Treeview):
+    def update_db2(self, tableauG_: ttk.Treeview, name_table: str):
         """
         Fonction permettant de mettre à jour la table 
-        SQL GachaClub de la SQL Database avec les lignes 
-        du ttk.Treview tableauGC.
+        SQL Gacha____ de la SQL Database avec les lignes 
+        du ttk.Treview tableauG_.
         Args:
-            tableauGC:
+            tableauG_:
         """
-        self.cursor.execute("DELETE FROM GachaClub")
-        for item in tableauGC.get_children():
-            values = tableauGC.item(item, "values")
+        self.cursor.execute(f"DELETE FROM {name_table}")
+        for item in tableauG_.get_children():
+            values = tableauG_.item(item, "values")
             if len(values) == 4:
-                self.cursor.execute("""
-                INSERT OR REPLACE INTO GachaClub (CharacterId, CharacterName, CharacterImage, DATE)
+                self.cursor.execute(f"""
+                INSERT OR REPLACE INTO {name_table} (CharacterId, CharacterName, CharacterImage, DATE)
                 VALUES (?, ?, ?, ?)
                 """, values)
             elif len(values) == 3:
-                self.cursor.execute("""
-                INSERT OR REPLACE INTO GachaClub (CharacterId, CharacterName, CharacterImage)
+                self.cursor.execute(f"""
+                INSERT OR REPLACE INTO {name_table} (CharacterId, CharacterName, CharacterImage)
                 VALUES (?, ?, ?)
                 """, values)
             self.conn.commit()
 
-    def update_db3(self, tableauGP: ttk.Treeview):
-        """
-        Fonction permettant de mettre à jour la table 
-        SQL GachaPlus de la SQL Database avec les lignes 
-        du ttk.Treview tableauGP.
-        Args:
-            tableauGP:
-        """        
-        self.cursor.execute("DELETE FROM GachaPlus")
-        for item in tableauGP.get_children():
-            values = tableauGP.item(item, "values")
-            if len(values) == 4:
-                self.cursor.execute("""
-                INSERT OR REPLACE INTO GachaPlus (CharacterId, CharacterName, CharacterImage, Date)
-                VALUES (?, ?, ?, ?)
-                """, values)
-            elif len(values) == 3:
-                self.cursor.execute("""
-                INSERT OR REPLACE INTO GachaPlus (CharacterId, CharacterName, CharacterImage)
-                VALUES (?, ?, ?)
-                """, values)
-        self.conn.commit()
-
-    def update_db4(self, tableauGL2: ttk.Treeview):
-        """
-        Fonction permettant de mettre à jour la table 
-        SQL GachaLife2 de la SQL Database avec les lignes 
-        du ttk.Treview tableauGL2.
-        Args:
-            tableauGL2:
-        """
-        self.cursor.execute("DELETE FROM GachaLife2")
-        for item in tableauGL2.get_children():
-            values = tableauGL2.item(item, "values")
-            if len(values) == 4:
-                self.cursor.execute("""
-                INSERT OR REPLACE INTO Gachalife2 (CharacterId, CharacterName, CharacterImage, DATE)
-                VALUES (?, ?, ?, ?)
-                """, values)
-            elif len(values) == 5:
-                self.cursor.execute("""
-                INSERT OR REPLACE INTO Gachalife2 (CharacterId, CharacterName, CharacterImage)
-                VALUES (?, ?, ?)
-                """, values)        
-            self.conn.commit()
-
-    def update_db5(self, tableauGN16: ttk.Treeview):
-        """
-        Fonction permettant de mettre à jour la table 
-        SQL GachaNebula16 de la SQL Database avec les lignes 
-        du ttk.Treview tableauGN16.
-        Args:
-            tableauGN16
-        """
-        self.cursor.execute("DELETE FROM GachaNebula16")
-        for item in tableauGN16.get_children():
-            values = tableauGN16.item(item, "values")
-            if len(values) == 4:
-                self.cursor.execute("""
-                INSERT OR REPLACE INTO GachaNebula16 (CharacterId, CharacterName, CharacterImage, DATE)
-                VALUES (?, ?, ?, ?)
-                """, values)
-            elif len(values) == 3:
-                self.cursor.execute("""
-                INSERT OR REPLACE INTO GachaNebula16 (CharacterId, CharacterName, CharacterImage)
-                VALUES (?, ?, ?)
-                """, values)
-        self.conn.commit()
-
-    def update_db(self, tableauGG: ttk.Treeview, tableauGC: ttk.Treeview, 
-                  tableauGP: ttk.Treeview, tableauGL2: ttk.Treeview, 
-                  tableauGN16: ttk.Treeview):
+    def update_db(
+            self, tableauGG: ttk.Treeview, tableauGC: ttk.Treeview, 
+            tableauGN16: ttk.Treeview, tableauGL2: ttk.Treeview, 
+            tableauGP: ttk.Treeview, tableauGU: ttk.Treeview, 
+            tableauGLu: ttk.Treeview, tableauGLi: ttk.Treeview,
+            tableauGR: ttk.Treeview):
         """
         Fonction conteneur permettant de mettre à jour les tables 
-        SQL GachaGames, GachaClub, GachaPlus, GachaLife2, GachaNebula16 
-        de la SQL Database avec les ttk.Treview tableauGG, tableauGC, 
-        tableauGP, tableauGL2, tableauGN16.
+        SQL GachaGames, GachaClub, GachaPlus, GachaLife2, GachaNebula16,
+        Gacha Life, Gacha Luminal, Gacha Ultra, Gacha Realms de la SQL 
+        Database avec les ttk.Treview tableauGG, tableauGC, 
+        tableauGP, tableauGL2, tableauGN16, tableauGLi, tableauGLu,
+        tableauGU, tableauGR.
         Args:
             tableauGG: 
             tableauGC: 
             tableauGP: 
             tableauGL2: 
             tableauGN16:
+            tableauGR:
+            tableauGLu:
+            tableauGLi:
+            tableauGU:
         """
         self.update_db1(tableauGG)
-        self.update_db2(tableauGC)
-        self.update_db3(tableauGP)
-        self.update_db4(tableauGL2)
-        self.update_db5(tableauGN16)
+        self.update_db2(tableauGC, "GachaClub")
+        self.update_db2(tableauGP, "GachaPlus")
+        self.update_db2(tableauGL2, "GachaLife2")
+        self.update_db2(tableauGN16, "GachaNebula16")
+        self.update_db2(tableauGU, "GachaUltra")
+        self.update_db2(tableauGLi, "GachaLife")
+        self.update_db2(tableauGLu, "GachaLuminal")
+        self.update_db2(tableauGR, "GachaRealms")
 
