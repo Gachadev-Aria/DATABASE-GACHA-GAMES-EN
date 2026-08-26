@@ -6,6 +6,10 @@ Un logiciel permettant de sauvegarder les OC des jeux pour en garder une trace:
 - Gacha Plus
 - Gacha Life 2
 - Gacha Nebula v1.6
+- Gacha Luminal
+- Gacha Life
+- Gacha Realms
+- Gacha Ultra
 
 Le projet a commencé le 22/08/2026 et il se basait sur un projet existant de mon ordinateur.
 
