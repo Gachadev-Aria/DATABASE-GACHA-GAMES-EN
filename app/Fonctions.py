@@ -11,7 +11,6 @@ from random import choice
 # Importations internes
 from app.static.Listes import list_games, colonnes_GG, colonnes_sqlGG
 
-
 codes_path = os.path.join(os.path.dirname(__file__), "fichier_code", "codes.json")
 
 with open(codes_path, "r", encoding="utf-8") as f:
@@ -87,13 +86,13 @@ def new_Notebook(parent: tk.Frame, pages_names: list[str], bg_color: str, btn_co
         "TNotebook.Tab",
         background=btn_color,  
         foreground=definir_police_color(btn_color),   
-        font=police,           
+        font=(police[0], police[1]-3),           
         padding=[10, 5],       
         borderwidth=2,         
         relief="solid",        
         lightcolor=bg_color,  
-        darkcolor=btn_color    
-        )
+        darkcolor=btn_color,
+    )
 
     style.map(
         "TNotebook.Tab",
@@ -276,6 +275,7 @@ def Top_level_modifier_oc(page: tk.Frame, bg_color: str, btn_color: str, police:
             return None
         else: 
             return result
+
 
 def creer_canvas(chemin: str, page_parent: tk.LabelFrame):
     """
@@ -540,7 +540,7 @@ def extraire_texte_depuis_json(chemin, name):
 
 def convertir():
     """Fonction permettant d'accéder au site web de conversion."""
-    webbrowser.open("https://convertisseur-gacha.onrender.com/")
+    webbrowser.open("https://convertisseur-codes-gacha.onrender.com/")
 
 def definir_police_color(bg: str) -> str:
     """
