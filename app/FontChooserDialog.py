@@ -14,7 +14,7 @@ class FontChooserDialog:
         et les données enregistrées dans parametres.json"""
         self.parent = parent
         self.top = tk.Toplevel(parent)
-        self.top.title("Personnaliser la police")
+        self.top.title("Customize the police")
         self.top.geometry("400x350")
         self.top.transient(parent)
         self.top.grab_set()
@@ -37,7 +37,7 @@ class FontChooserDialog:
     def create_widgets(self):
         """Fonction qui créer les widgets pour choisir la police."""
         # Frame pour la famille de police
-        family_frame = tk.LabelFrame(self.top, text="Famille de police")
+        family_frame = tk.LabelFrame(self.top, text="Font family")
         family_frame.pack(fill="x", padx=10, pady=5)
 
         self.family_combobox = ttk.Combobox(family_frame, textvariable=self.font_family,
@@ -45,19 +45,19 @@ class FontChooserDialog:
         self.family_combobox.pack(fill="x", padx=5, pady=5)
 
         # Frame pour la taille de police
-        size_frame = tk.LabelFrame(self.top, text="Taille")
+        size_frame = tk.LabelFrame(self.top, text="Font size")
         size_frame.pack(fill="x", padx=10, pady=5)
 
         self.size_spinbox = ttk.Spinbox(size_frame, from_=8, to=72, textvariable=self.font_size)
         self.size_spinbox.pack(fill="x", padx=5, pady=5)
 
         # Aperçu de la police
-        preview_frame = tk.LabelFrame(self.top, text="Aperçu")
+        preview_frame = tk.LabelFrame(self.top, text="Preview")
         preview_frame.pack(fill="x", padx=10, pady=5)
 
         self.preview_label = tk.Label(
             preview_frame, 
-            text="Ai-je versé cinq yoghourts aux\n kiwis sur de la pizza flambée ? \n - ×",
+            text="Do the quick brown fox jump over the lazy dog ? \n - ×",
             font=self.police)
         self.preview_label.pack(pady=10)
 
@@ -85,7 +85,7 @@ class FontChooserDialog:
             with open(fichier_config, "w", encoding="utf-8") as f:
                 json.dump({"police et taille": self.result}, f, ensure_ascii=False, indent=4)
         except Exception as e:
-            print(f"Erreur lors de l'enregistrement de la police: {e}")
+            print(f"Error during the font saving: {e}")
         self.top.destroy()
 
     def on_cancel(self):
