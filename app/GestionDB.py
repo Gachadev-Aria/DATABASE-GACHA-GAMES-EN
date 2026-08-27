@@ -18,9 +18,7 @@ class DB():
             DATE TEXT DEFAULT CURRENT_DATE
         );""")
 
-        self.tables = ["GachaClub", "GachaLife2", "GachaNebula16", 
-                  "GachaPlus", "GachaLuminal", "GachaRealms", 
-                  "GachaUltra", "GachaLife"]
+        self.tables = ["GachaClub", "GachaLife2", "GachaNebula16", "GachaLife"]
         
         for table in self.tables:
             self.cursor.execute(f"""
@@ -97,34 +95,22 @@ class DB():
     def update_db(
             self, tableauGG: ttk.Treeview, tableauGC: ttk.Treeview, 
             tableauGN16: ttk.Treeview, tableauGL2: ttk.Treeview, 
-            tableauGP: ttk.Treeview, tableauGU: ttk.Treeview, 
-            tableauGLu: ttk.Treeview, tableauGLi: ttk.Treeview,
-            tableauGR: ttk.Treeview):
+            tableauGL: ttk.Treeview):
         """
         Fonction conteneur permettant de mettre à jour les tables 
-        SQL GachaGames, GachaClub, GachaPlus, GachaLife2, GachaNebula16,
-        Gacha Life, Gacha Luminal, Gacha Ultra, Gacha Realms de la SQL 
-        Database avec les ttk.Treview tableauGG, tableauGC, 
-        tableauGP, tableauGL2, tableauGN16, tableauGLi, tableauGLu,
-        tableauGU, tableauGR.
+        SQL GachaGames, GachaClub, GachaLife2, GachaNebula16,
+        Gacha Life, de la SQL Database avec les ttk.Treview 
+        tableauGG, tableauGC, tableauGL2, tableauGN16, tableauGL.
         Args:
             tableauGG: 
             tableauGC: 
-            tableauGP: 
+            tableauGL: 
             tableauGL2: 
             tableauGN16:
-            tableauGR:
-            tableauGLu:
-            tableauGLi:
-            tableauGU:
         """
         self.update_db1(tableauGG)
         self.update_db2(tableauGC, "GachaClub")
-        self.update_db2(tableauGP, "GachaPlus")
         self.update_db2(tableauGL2, "GachaLife2")
         self.update_db2(tableauGN16, "GachaNebula16")
-        self.update_db2(tableauGU, "GachaUltra")
-        self.update_db2(tableauGLi, "GachaLife")
-        self.update_db2(tableauGLu, "GachaLuminal")
-        self.update_db2(tableauGR, "GachaRealms")
+        self.update_db2(tableauGL, "GachaLife")
 
