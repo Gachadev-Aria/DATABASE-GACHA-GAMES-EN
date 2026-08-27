@@ -130,7 +130,7 @@ def Top_level_build_oc(page: tk.Frame, bg_color: str, btn_color: str, police: tu
         police: nom et taille de police.
     """
     dialog = tk.Toplevel(page, relief='raised', bg=bg_color)
-    dialog.title("Nouvel OC")
+    dialog.title("New OC")
     dialog.grab_set()
     dialog.geometry("600x700")
 
@@ -139,14 +139,14 @@ def Top_level_build_oc(page: tk.Frame, bg_color: str, btn_color: str, police: tu
     main_frame = tk.Frame(dialog, bg=bg_color)
     main_frame.pack(fill="both", expand=True, padx=10, pady=10)
 
-    titre_nom_oc = tk.LabelFrame(main_frame, text="Nom de l'OC", font=police, bg=bg_color)
+    titre_nom_oc = tk.LabelFrame(main_frame, text="OC's name", font=police, bg=bg_color)
     titre_nom_oc.pack(fill="x", pady=5)
 
     nom_oc_var = tk.StringVar()
     nom_oc_entry = tk.Entry(titre_nom_oc, textvariable=nom_oc_var, width=30, font=police)
     nom_oc_entry.pack(padx=10, pady=5)
 
-    titre_choix = tk.LabelFrame(main_frame, text="Jeux", font=police, bg=bg_color)
+    titre_choix = tk.LabelFrame(main_frame, text="Games", font=police, bg=bg_color)
     titre_choix.pack(fill="x", pady=5)
 
     liste = tk.Listbox(titre_choix, height=4, selectmode=tk.SINGLE, font=police)
@@ -154,11 +154,11 @@ def Top_level_build_oc(page: tk.Frame, bg_color: str, btn_color: str, police: tu
         liste.insert(tk.END, jeu)
     liste.pack(fill="x", padx=10, pady=5)
 
-    titre_champ_texte = tk.LabelFrame(main_frame, text="Code de l'OC", font=police, bg=bg_color)
+    titre_champ_texte = tk.LabelFrame(main_frame, text="OC's code", font=police, bg=bg_color)
     titre_champ_texte.pack(fill="both", expand=True, pady=5)
 
     champ_texte = tk.Text(
-        titre_champ_texte, bd=4, width=70, height=15, font=police, background='white')
+        titre_champ_texte, bd=4, width=70, height=13, font=police, background='white')
     champ_texte.pack(fill="both", expand=True, padx=10, pady=5)
 
     button_frame = tk.Frame(main_frame, bg=bg_color)
@@ -171,12 +171,12 @@ def Top_level_build_oc(page: tk.Frame, bg_color: str, btn_color: str, police: tu
         dialog.destroy()
 
     ok_btn = tk.Button(
-        button_frame, text="Valider", bg=btn_color, fg=definir_police_color(btn_color), 
+        button_frame, text="Validate", bg=btn_color, fg=definir_police_color(btn_color), 
         font=police, command=save_and_close)
     ok_btn.pack(side=tk.RIGHT, padx=5)
 
     cancel_btn = tk.Button(
-        button_frame, text="Annuler", bg=btn_color, fg=definir_police_color(btn_color), 
+        button_frame, text="Cancel", bg=btn_color, fg=definir_police_color(btn_color), 
         font=police, command=dialog.destroy)
     cancel_btn.pack(side=tk.RIGHT, padx=5)
 
@@ -208,9 +208,9 @@ def Top_level_modifier_oc(page: tk.Frame, bg_color: str, btn_color: str, police:
         main_frame.pack(fill="both", expand=True, padx=10, pady=10)
 
         if choix == 1:
-            dialog.title("Modifier le nom de l'OC")
+            dialog.title("Changing the OC's name")
             dialog.geometry("600x150")
-            titre_nom_oc = tk.LabelFrame(main_frame, text="Nom de l'OC", font=police, bg=bg_color)
+            titre_nom_oc = tk.LabelFrame(main_frame, text="OC's name", font=police, bg=bg_color)
             titre_nom_oc.pack(fill="x", pady=5)
         
             nom_oc_var = tk.StringVar()
@@ -222,9 +222,9 @@ def Top_level_modifier_oc(page: tk.Frame, bg_color: str, btn_color: str, police:
                 dialog.destroy()
 
         elif choix == 2:
-            dialog.title("Modifier l'origine de l'OC")
+            dialog.title("Changing the origin game of the OC")
             dialog.geometry("600x400")
-            titre_choix = tk.LabelFrame(main_frame, text="Jeux", font=police, bg=bg_color)
+            titre_choix = tk.LabelFrame(main_frame, text="Games", font=police, bg=bg_color)
             titre_choix.pack(fill="x", pady=5)
             liste = tk.Listbox(titre_choix, height=4, selectmode=tk.SINGLE, font=police)
             for jeu in list_games:
@@ -236,7 +236,7 @@ def Top_level_modifier_oc(page: tk.Frame, bg_color: str, btn_color: str, police:
                 dialog.destroy()
 
         elif choix == 4:
-            dialog.title("Modifier le code de l'OC")
+            dialog.title("Changing the OC's code")
             dialog.geometry("600x600")
             titre_champ_texte = tk.LabelFrame(
                 main_frame, text="Nouveau code de l'OC", font=police, bg=bg_color)
@@ -270,7 +270,7 @@ def Top_level_modifier_oc(page: tk.Frame, bg_color: str, btn_color: str, police:
             return result["new_info"]
     
     else:
-        result = filedialog.askopenfilename(title="Choisissez la nouvelle image")
+        result = filedialog.askopenfilename(title="Select an new image")
         if result == {}:
             return None
         else: 
@@ -340,7 +340,7 @@ def build_OC(page: tk.Frame, tableauGG: ttk.Treeview, bg_color: str, btn_color: 
         game_oc = data.get('jeu')
         
         if not nom_oc:
-            messagebox.showerror("Alors...", "Renseigne au moins un nom.", icon='error')
+            messagebox.showerror("So...", "Enter at least a name.", icon='error')
             return None
 
         codes[str(ID)] = code_oc.strip()
@@ -350,7 +350,7 @@ def build_OC(page: tk.Frame, tableauGG: ttk.Treeview, bg_color: str, btn_color: 
         with open(codes_path, "w", encoding="utf-8") as f:
             json.dump(codes, f, ensure_ascii=False, indent=4)   
 
-        chemin = filedialog.askopenfilename(title="Choisis l'image de l'OC")
+        chemin = filedialog.askopenfilename(title="Select the OC's image")
         if chemin:  
             infos = {"Nom": nom_oc, "Game": game_oc, "Image": chemin}
         else:  
@@ -371,7 +371,7 @@ def modifier_élément_ligne_OC(tableauGG: ttk.Treeview, page: tk.Frame, bg_colo
 
     ligne_select = tableauGG.selection()
     if not ligne_select:
-        messagebox.showerror("Bah ?", "Sélectionne un OC à modifier.", icon='error')
+        messagebox.showerror("Ah ?", "Select an OC to modify", icon='error')
         return
 
     élément = ligne_select[0]
@@ -379,13 +379,13 @@ def modifier_élément_ligne_OC(tableauGG: ttk.Treeview, page: tk.Frame, bg_colo
     id = éléments[0]
 
     choix = simpledialog.askinteger(
-        "Modifier une information",
-        "Quelle colonne voulez-vous modifier ?\n"
-        "1. Nom\n"
-        "2. Jeux\n"
+        "Modify a data",
+        "Which column do you want to modify ?\n"
+        "1. Name\n"
+        "2. Games\n"
         "3. Image\n"
         "4. Code\n\n"
-        "(Entrez un nombre entre 1 et 4)",
+        "(Enter an nombre between 1 and 4)",
         minvalue=1,
         maxvalue=4
     )
@@ -500,9 +500,9 @@ def choisir_couleur(type: str):
         type: 'bg' pour la couleur de l'arrière-pla, 'btn' pour la couleur des boutons.
     """
     if type == 'bg':
-        couleur = colorchooser.askcolor(title="Choisir la couleur de l'arrière-plan")
+        couleur = colorchooser.askcolor(title="Customize the background color")
     elif type == 'btn':
-        couleur = colorchooser.askcolor(title="Choisir la couleur des boutons")
+        couleur = colorchooser.askcolor(title="Customize the buttons color")
     if couleur[1]:
         fichier_config = os.path.join(os.path.dirname(__file__), "parametres", "parametres.json")
         try:
@@ -515,7 +515,7 @@ def choisir_couleur(type: str):
             with open(fichier_config, "w", encoding="utf-8") as f:
                 json.dump(data, f, ensure_ascii=False, indent=4)
         except Exception as e:
-            print(f"Erreur lors de l'enregistrement de la couleur: {e}")
+            print(f"Error during the colors' saving: {e}")
 
 def extraire_texte_depuis_json(chemin, name):
     """Fonction permettant d'extraire le texte d'un fichier JSON."""
@@ -526,16 +526,16 @@ def extraire_texte_depuis_json(chemin, name):
                 t = config.get(name, "")
         return t
     except FileNotFoundError:
-        print(f"Erreur : Le fichier {chemin} est introuvable.")
+        print(f"Error : The file {chemin} cannot be found.")
         return []
     except json.JSONDecodeError:
-        print(f"Erreur : Le fichier {chemin} n'est pas un JSON valide.")
+        print(f"Error : the file {chemin} n'est pas un JSON valide.")
         return []
     except KeyError:
-        print("Erreur : Le champ '{chemin}' ou '{name}' est manquant dans le fichier JSON.")
+        print("Error : the field '{chemin}' ou '{name}' is missing in the JSON file.")
         return []
     except Exception as e:
-        print(f"Erreur inattendue : {e}")
+        print(f"Unexepected error : {e}")
         return []
 
 def convertir():
