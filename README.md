@@ -2,8 +2,8 @@
 
 ## Description: 
 A software for saving your OC's from:
-- Gache Club and its mod
-- Gacha Life 2 and its mod
+- Gache Club and its mods
+- Gacha Life 2 and its mods
 - Gacha Nebula v1.6
 - Gacha Life + Gachaverse
 - Gacha Nebula v1.6
@@ -56,13 +56,13 @@ Requirements:
 ### Solution 1:
 1. Clone the repository :
      ```bash
-     git clone https://github.com/Gachadev-Aria/Database-Gacha-Games-FR.git
+     git clone https://github.com/Gachadev-Aria/Database-Gacha-Games-EN.git
 Ou:
      Download the [ZIP file](https://github.com/Gachadev-Aria/Database-Gacha-Games/archive/refs/heads/main.zip)
   
 2. In the console of your PC:
     ```bash
-    cd Database-Gacha-Games
+    cd Database-Gacha-Games-EN
     python run.py
 Or 
      Open run.py with a software and execute it (Example: VS Code)
@@ -72,7 +72,7 @@ Or
 1. Clone the repo' or download ZIP file.
 2. In the console of your PC:
    ```bash
-   cd Database-Gacha-Games
+   cd Database-Gacha-Games-EN
    python -m PyInstaller --onefile --windowed --add-data "app/fichier_code;app/fichier_code" --add-data "app/parametres;app/parametres" --add-data "app/static;app/static"  --add-data "app/database;app/database" run.py
 3. Open /dist/run
 4. And start !
