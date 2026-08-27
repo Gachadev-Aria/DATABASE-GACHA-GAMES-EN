@@ -37,7 +37,7 @@ class API():
         Fonction conteneur permettant de mettre à jour 
         la SQL Database.
         """
-        self.DataBase.update_db(self.tableauGG, self.tableauGC, self.tableauGP, self.tableauGL2, self.tableauGN16, self.tableauGU, self.tableauGLu, self.tableauGLi, self.tableauGR)
+        self.DataBase.update_db(self.tableauGG, self.tableauGC, self.tableauGL, self.tableauGL2, self.tableauGN16)
 
     def load(self):
         """
