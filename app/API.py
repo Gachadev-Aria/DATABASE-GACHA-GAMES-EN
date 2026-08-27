@@ -58,7 +58,7 @@ class API():
         remplir_tableau(self.tableauGG, self.tableauGC, ["Gacha Plus", "Gacha Club", "Gacha Ultra", "Gacha Luminal"])
         remplir_tableau(self.tableauGG, self.tableauGL2, ["Gacha Life 2", "Gacha Realms"])
         remplir_tableau(self.tableauGG, self.tableauGN16, "Gacha Nebula v1.6")
-        remplir_tableau(self.tableauGG, self.tableauGL, "Gacha Life")
+        remplir_tableau(self.tableauGG, self.tableauGL, ["Gacha Life", "Gachaverse"])
 
     def creer_triof(self, page: tk.Frame):
         """
