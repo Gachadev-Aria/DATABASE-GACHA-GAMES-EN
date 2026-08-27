@@ -48,25 +48,17 @@ class API():
         self.DataBase.load_data(self.tableauGC, "GachaClub")
         self.DataBase.load_data(self.tableauGL2, "GachaLife2")
         self.DataBase.load_data(self.tableauGN16, "GachaNebula16")
-        self.DataBase.load_data(self.tableauGP, "GachaPlus")
-        self.DataBase.load_data(self.tableauGU, "GachaUltra")
-        self.DataBase.load_data(self.tableauGLi, "GachaLife")
-        self.DataBase.load_data(self.tableauGLu, "GachaLuminal")
-        self.DataBase.load_data(self.tableauGR, "GachaRealms")
+        self.DataBase.load_data(self.tableauGL, "GachaLife")
 
     def remplir_tableaux(self):
         """
         Fonction conteneur pour remplir les tk.Treeview 
         après avoir ajouté, modifier ou supprimé un OC.
         """
-        remplir_tableau(self.tableauGG, self.tableauGC, "Gacha Club",)
-        remplir_tableau(self.tableauGG, self.tableauGL2, "Gacha Life 2")
-        remplir_tableau(self.tableauGG, self.tableauGP, ["Gacha Plus", "Gacha Club"])
+        remplir_tableau(self.tableauGG, self.tableauGC, ["Gacha Plus", "Gacha Club", "Gacha Ultra", "Gacha Luminal"])
+        remplir_tableau(self.tableauGG, self.tableauGL2, ["Gacha Life 2", "Gacha Realms"])
         remplir_tableau(self.tableauGG, self.tableauGN16, "Gacha Nebula v1.6")
-        remplir_tableau(self.tableauGG, self.tableauGLi, "Gacha Life")
-        remplir_tableau(self.tableauGG, self.tableauGU, "Gacha Ultra")
-        remplir_tableau(self.tableauGG, self.tableauGLu, "Gacha Luminal")
-        remplir_tableau(self.tableauGG, self.tableauGR, "Gacha Realms")
+        remplir_tableau(self.tableauGG, self.tableauGL, "Gacha Life")
 
     def creer_triof(self, page: tk.Frame):
         """
@@ -145,24 +137,18 @@ class API():
 
         def supprimer_OC(tableauGG: ttk.Treeview, tableauGC: ttk.Treeview, 
                          tableauGN16: ttk.Treeview, tableauGL2: ttk.Treeview, 
-                         tableauGP: ttk.Treeview, tableauGU: ttk.Treeview, 
-                         tableauGLu: ttk.Treeview, tableauGLi: ttk.Treeview,
-                         tableauGR: ttk.Treeview):
+                         tableauGL: ttk.Treeview):
             """
-            Fonction permettant de supprimer une ligne (un OC) 
-            dans le tk.Treeview tableauGG, le tableau principal et dans 
-            les tk.Treeview tableauGC, tableauGN16, tableauGL2, tableauGP 
+            Fonction permettant de supprimer une ligne (un OC) dans le 
+            tk.Treeview tableauGG, le tableau principal et dans 
+            les tk.Treeview tableauGC, tableauGN16, tableauGL2, tableauGL
             selon la ligne supprimée dans le tk.Treeview tableauGG.
             Args:
                 tableauGG: tableau principal Gacha Games.
-                tableauGLi: tableau principal Gacha Life.
-                tableauGU: tableau principal Gacha Ultra.
-                tableauGLu: tableau principal Gacha Luminal.
-                tableauGR: tableau principal Gacha Realms.
-                tableauGC: tableau secondaire Gacha Club.
+                tableauGL: tableau principal Gacha Life.
+                tableauGC: tableau secondaire Gacha Club et ses mod.
                 tableauGN16: tableau secondaire Gacha Nebula v1.6.
-                tableauGL2: tableau secondaire Gacha Life 2.
-                tableauGP: tableau secondaire Gacha Plus.
+                tableauGL2: tableau secondaire Gacha Life 2 et ses mod.
             """
             ligne_select1 = tableauGG.selection()
             if len(tableauGG.item(ligne_select1, "values")) == 5:
@@ -177,8 +163,7 @@ class API():
 
             if response == True:
                 tableauGG.delete(ligne_select1)
-                tableaux= [tableauGC, tableauGN16, tableauGL2, tableauGP, tableauGU,
-                         tableauGLu, tableauGLi, tableauGR]
+                tableaux= [tableauGC, tableauGN16, tableauGL2, tableauGL]
                 for tableau in tableaux:
                     for item in tableau.get_children():
                         values = tableau.item(item, "values")
@@ -198,11 +183,12 @@ class API():
             Fonction conteneur permettant de:
             -supprimer une ligne (un OC) dans le tk.Treeview tableauGG, 
             le tableau principal et dans les tk.Treeview tableauGC, 
-            tableauGN16, tableauGL2, tableauGP selon la ligne supprimée dans le tk.Treeview tableauGG
-            -(re)remplir les tk.Treeview tableauGC, tableauGN16, tableauGL2, tableauGP
+            tableauGN16, tableauGL2, tableauGL selon la ligne supprimée 
+            dans le tk.Treeview tableauGG
+            -(re)remplir les tk.Treeview tableauGC, tableauGN16, tableauGL2, tableauGL
             -mettre à jour la SQL Database.
             """
-            supprimer_OC(self.tableauGG, self.tableauGC, self.tableauGN16, self.tableauGL2, self.tableauGP)
+            supprimer_OC(self.tableauGG, self.tableauGC, self.tableauGN16, self.tableauGL2, self.tableauGL)
             self.remplir_tableaux()
             self.update()
 
@@ -211,8 +197,9 @@ class API():
             Fonction conteneur permettant de:
             -modifier une ligne (un OC) dans le tk.Treeview tableauGG, 
             le tableau principal et dans les tk.Treeview tableauGC, 
-            tableauGN16, tableauGL2, tableauGP selon la ligne supprimée dans le tk.Treeview tableauGG
-            -(re)remplir les tk.Treeview tableauGC, tableauGN16, tableauGL2, tableauGP
+            tableauGN16, tableauGL2, tableauGL selon la ligne supprimée 
+            dans le tk.Treeview tableauGG.
+            -(re)remplir les tk.Treeview tableauGC, tableauGN16, tableauGL2, tableauGL
             -mettre à jour la SQL Database.
             """
             modifier_élément_ligne_OC(self.tableauGG, self.Notebook, self.bg_color, self.btn_color, self.police)
@@ -253,43 +240,27 @@ class API():
         
         self.Notebook, self.pages = new_Notebook(self.page_conteneur, liste_all, self.bg_color, self.btn_color, self.police)
 
-        self.pageGG = self.pages["Gacha \nGames"]
-        self.pageGLi = self.pages["Gacha \nLife"]
-        self.pageGC = self.pages["Gacha \nClub"]
-        self.pageGU = self.pages["Gacha \nUltra"]
-        self.pageGLu = self.pages["Gacha \nLuminal"]
-        self.pageGP = self.pages["Gacha \nPlus"]
-        self.pageGL2 = self.pages["Gacha \nLife 2"]
-        self.pageGR = self.pages["Gacha \nRealms"]
-        self.pageGN16 = self.pages["Gacha \nNebula v1.6"]
+        self.pageGG = self.pages["Gacha Games"]
+        self.pageGL = self.pages["Gacha Life"]
+        self.pageGC = self.pages["Gacha Club"]
+        self.pageGL2 = self.pages["Gacha Life 2"]
+        self.pageGN16 = self.pages["Gacha Nebula v1.6"]
 
         self.tableauGG = new_tableau(self.pageGG, self.police, self.bg_color, colonnes_GG, colonnes_sqlGG, 200, trier_colonne)
         self.tableauGG.bind("<Double-1>", lambda event: on_double_clic_principal(self.tableauGG, self.ImageOC))
-        self.tableauGLi = new_tableau(self.pageGLi, self.police, self.bg_color, colonnes_G, colonnes_sqlG, 230, trier_colonne)
-        self.tableauGLi.bind("<Double-1>", lambda event: on_double_clic_secondaire(self.tableauGLi,self.ImageOC))
+        self.tableauGL = new_tableau(self.pageGL, self.police, self.bg_color, colonnes_G, colonnes_sqlG, 230, trier_colonne)
+        self.tableauGL.bind("<Double-1>", lambda event: on_double_clic_secondaire(self.tableauGL,self.ImageOC))
         self.tableauGC = new_tableau(self.pageGC, self.police, self.bg_color, colonnes_G, colonnes_sqlG, 230, trier_colonne)
         self.tableauGC.bind("<Double-1>", lambda event: on_double_clic_secondaire(self.tableauGC,self.ImageOC))
-        self.tableauGU = new_tableau(self.pageGU, self.police, self.bg_color, colonnes_G, colonnes_sqlG, 230, trier_colonne)
-        self.tableauGU.bind("<Double-1>", lambda event: on_double_clic_secondaire(self.tableauGU,self.ImageOC))
-        self.tableauGLu = new_tableau(self.pageGLu, self.police, self.bg_color, colonnes_G, colonnes_sqlG, 230, trier_colonne)
-        self.tableauGLu.bind("<Double-1>", lambda event: on_double_clic_secondaire(self.tableauGLu,self.ImageOC))
-        self.tableauGP = new_tableau(self.pageGP, self.police, self.bg_color, colonnes_G, colonnes_sqlG, 230, trier_colonne)
-        self.tableauGP.bind("<Double-1>", lambda event: on_double_clic_secondaire(self.tableauGP, self.ImageOC))
         self.tableauGL2 = new_tableau(self.pageGL2, self.police, self.bg_color, colonnes_G, colonnes_sqlG, 230, trier_colonne)
         self.tableauGL2.bind("<Double-1>", lambda event: on_double_clic_secondaire(self.tableauGL2, self.ImageOC))
-        self.tableauGR = new_tableau(self.pageGR, self.police, self.bg_color, colonnes_G, colonnes_sqlG, 230, trier_colonne)
-        self.tableauGR.bind("<Double-1>", lambda event: on_double_clic_secondaire(self.tableauGR, self.ImageOC))
         self.tableauGN16 = new_tableau(self.pageGN16, self.police, self.bg_color, colonnes_G, colonnes_sqlG, 230, trier_colonne)
         self.tableauGN16.bind("<Double-1>", lambda event: on_double_clic_secondaire(self.tableauGN16, self.ImageOC))
         
         new_scrollbar(self.tableauGG)
-        new_scrollbar(self.tableauGLi)
+        new_scrollbar(self.tableauGL)
         new_scrollbar(self.tableauGC)
-        new_scrollbar(self.tableauGU)
-        new_scrollbar(self.tableauGLu)
-        new_scrollbar(self.tableauGP)
         new_scrollbar(self.tableauGL2)
-        new_scrollbar(self.tableauGR)
         new_scrollbar(self.tableauGN16)
 
         self.FrameBtn = tk.Frame(self.pageGG, bg=self.bg_color)
