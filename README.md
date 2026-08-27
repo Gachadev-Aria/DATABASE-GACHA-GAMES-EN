@@ -2,14 +2,11 @@
 
 ## Description: 
 Un logiciel permettant de sauvegarder les OC des jeux pour en garder une trace:
-- Gache Club
-- Gacha Plus
-- Gacha Life 2
+- Gache Club et ses mod
+- Gacha Life 2 et ses mod
 - Gacha Nebula v1.6
-- Gacha Luminal
-- Gacha Life
-- Gacha Realms
-- Gacha Ultra
+- Gacha Life + Gachaverse
+- Gacha Nebula v1.6
 
 Le projet a commencé le 22/08/2026 et il se basait sur un projet existant de mon ordinateur.
 
