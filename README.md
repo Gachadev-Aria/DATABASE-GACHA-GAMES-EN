@@ -1,50 +1,50 @@
-# Database Gacha Games FR
+# Database Gacha Games EN
 
 ## Description: 
-Un logiciel permettant de sauvegarder les OC des jeux pour en garder une trace:
-- Gache Club et ses mod
-- Gacha Life 2 et ses mod
+A software for saving your OC's from:
+- Gache Club and its mod
+- Gacha Life 2 and its mod
 - Gacha Nebula v1.6
 - Gacha Life + Gachaverse
 - Gacha Nebula v1.6
 
-Le projet a commencé le 22/08/2026 et il se basait sur un projet existant de mon ordinateur.
+The project started on 08/22/2026.
 
 ---
 
-## 📸 Aperçu
+## 📸 Preview
 ![Capture d'écran](app/assets/Capture_d'écran_DATABASE.png)
 
 ---
 
-## 🚀 Fonctionnalités
-- ✅ Ajout d'OC de différentes applications
-- ✅ Affichage de l'OC
-- ✅ Possibilité de copier le code stocké
-- ✅ Personnalisation (couleur et police)
+## 🚀 Functionnalities
+- ✅ Adding OC from different games
+- ✅ OC display
+- ✅ Ability to copy-paste your OC code
+- ✅ Personnalisation (color and police)
 
 ---
 
-## 📌 **À propos du projet**
+## 📌 **About the project**
 - **Backend** : Python
 - **Frontend** : Python Tkinter
 - **Database**: SQL et JSON
 
 ---
 
-## 🤖 Utilisation de l'IA
+## 🤖 Use of IA
 
-Ce projet a été développé avec l'aide d'outils d'intelligence artificielle (Mistral AI).
+This project was developped with the assistance of AI (Mistral AI).
 
-**La contribution de l'IA** inclut :
-- la création de la class FontChooserDialog avec quelques modifications personnelles
-- une partie de mon apprentissage sur SQL
-- la résolution d'erreurs non comprises
-- des fonctionnalités spécifiques 
+**The AI's contribution** inclut :
+- The creation of the class FontChooserDialog with some modifications of mine.
+- a part on learning SQL
+- the resolution of errors not understood
+- Specific functionnalities
 
 ## Utilisation
 
-Prérequis:
+Requirements:
 - python
 - tkinter
 - color-contrast
@@ -54,32 +54,30 @@ Prérequis:
 - pyinstaller
 
 ### Solution 1:
-1. Cloner le dépôt :
+1. Clone the repository :
      ```bash
      git clone https://github.com/Gachadev-Aria/Database-Gacha-Games-FR.git
 Ou:
-     Télécharger le [fichier ZIP.](https://github.com/Gachadev-Aria/Database-Gacha-Games-FR/archive/refs/heads/main.zip)
+     Download the [ZIP file](https://github.com/Gachadev-Aria/Database-Gacha-Games/archive/refs/heads/main.zip)
   
-2. Dans la console de votre ordi:
+2. In the console of your PC:
     ```bash
-    cd Database-Gacha-Games-FR
+    cd Database-Gacha-Games
     python run.py
-Ou 
-     Ouvrir run.py avec un logiciel de code et l'executer (Exemple: VS Code)
-3. Puis commencez !
+Or 
+     Open run.py with a software and execute it (Example: VS Code)
+3. And start !
 
-### Solution 2, Créer un fichier exe
-1. Cloner le dépôt ou télécharger le fichier ZIP.
-2. Dans la console de votre ordi:
+### Solution 2, Create an exe file
+1. Clone the repo' or download ZIP file.
+2. In the console of your PC:
    ```bash
-   cd Database-Gacha-Games-FR
+   cd Database-Gacha-Games
    python -m PyInstaller --onefile --windowed --add-data "app/fichier_code;app/fichier_code" --add-data "app/parametres;app/parametres" --add-data "app/static;app/static"  --add-data "app/database;app/database" run.py
-3. Ouvrer /dist/run
-4. Puis commencer !
-
-
+3. Open /dist/run
+4. And start !
 
 ---
 ## 📧 Contact
 
-Vous pouvez me contacter par mail: aria.and.idriss@gmail.com
+You can contact me by email: aria.and.idriss@gmail.com
