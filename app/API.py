@@ -76,7 +76,7 @@ class API():
             self.triof, text="  -  ", background="#FFFFFF", foreground="#000000", 
             command=lambda: self.reduce(), relief="groove", font=self.police).pack(side="right")
         tk.Button(
-            self.triof, text="Besoin de convertir ?", bg='#FFFFFF', fg='black', font=self.police, 
+            self.triof, text="Need to convert ?", bg='#FFFFFF', fg='black', font=self.police, 
             relief="groove", command=lambda: convertir()).pack(side="right", pady=3, anchor='n')
         
     def reinitialiser(self):
