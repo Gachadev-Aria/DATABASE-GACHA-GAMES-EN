@@ -63,7 +63,6 @@ Ou:
 2. Dans la console de votre ordi:
     ```bash
     cd Database-Gacha-Games-FR
-    python -mvenv venv
     python run.py
 Ou 
      Ouvrir run.py avec un logiciel de code et l'executer (Exemple: VS Code)
