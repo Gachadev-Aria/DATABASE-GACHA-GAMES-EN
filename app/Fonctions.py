@@ -86,7 +86,7 @@ def new_Notebook(parent: tk.Frame, pages_names: list[str], bg_color: str, btn_co
         "TNotebook.Tab",
         background=btn_color,  
         foreground=definir_police_color(btn_color),   
-        font=(police[0], police[1]-3),           
+        font=(police[0], police[1]-2),           
         padding=[10, 5],       
         borderwidth=2,         
         relief="solid",        
