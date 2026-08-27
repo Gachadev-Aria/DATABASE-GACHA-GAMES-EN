@@ -156,10 +156,10 @@ class API():
             elif len(tableauGG.item(ligne_select1, "values")) == 6:
                 a, _, _, _, _, _ = tableauGG.item(ligne_select1, "values")
             if not ligne_select1:
-                messagebox.showerror("Réessaye", "Sélectionne un OC à supprimer.", icon='error')
+                messagebox.showerror("Try again", "Select an OC to delete", icon='error')
                 return
             
-            response = messagebox.askyesno("Mais ?...", "Veux-tu vraiment supprimer cet OC ?", icon="question")
+            response = messagebox.askyesno("Really ?...", "Do you really want to delete this OC", icon="question")
 
             if response == True:
                 tableauGG.delete(ligne_select1)
@@ -218,7 +218,7 @@ class API():
             elif len(tableau.item(ligne_select, "values")) == 5:
                 a, _, _, _, _ = tableau.item(ligne_select, "values")
             if not ligne_select:
-                messagebox.showerror("Réessaye", "Sélectionne un OC dont il faut copier le code.", icon='error')
+                messagebox.showerror("Try again", "Select an OC whose code need to be copied.", icon='error')
                 return   
             path = os.path.join(os.path.dirname(__file__), "fichier_code", "codes.json")  
             with open(path, "r", encoding="utf-8") as f:
@@ -226,7 +226,7 @@ class API():
             code = codes.get(a)
             if code:
                 pyperclip.copy(code)
-                messagebox.showinfo("Yeah !", "Code offline de l'OC copié !", icon='info')
+                messagebox.showinfo("Yeah !", "Offline code of the OC copied !", icon='info')
 
         self.pageBG = tk.Canvas(self.root, background=self.bg_color)
         self.pageBG.pack(fill='both', expand=True)
@@ -267,17 +267,17 @@ class API():
         self.FrameBtn.pack(side="top")
 
         tk.Button(
-            self.FrameBtn, text="Ajouter un OC", bg=self.btn_color, fg=definir_police_color(self.btn_color), 
+            self.FrameBtn, text="Add an OC", bg=self.btn_color, fg=definir_police_color(self.btn_color), 
             font=self.police, command=ajouter_oc).pack(side="left", padx=3, pady=3, anchor='n')
         tk.Button(
-            self.FrameBtn, text="Supprimer un OC", bg=self.btn_color, fg=definir_police_color(self.btn_color), 
+            self.FrameBtn, text="Delete an OC", bg=self.btn_color, fg=definir_police_color(self.btn_color), 
             font=self.police,command=supprimer_oc).pack(side="left", padx=3, pady=3, anchor='n')
         tk.Button(
-            self.FrameBtn, text="Modifier un OC", bg=self.btn_color, fg=definir_police_color(self.btn_color), 
+            self.FrameBtn, text="Change an OC", bg=self.btn_color, fg=definir_police_color(self.btn_color), 
             font=self.police, command=modifier_élément_oc).pack(
                 side="left",  padx=3, pady=3, anchor='n')
         tk.Button(
-            self.FrameBtn, text="Personnaliser DATABASE", bg=self.btn_color, fg=definir_police_color(self.btn_color), 
+            self.FrameBtn, text="Customize DATABASE", bg=self.btn_color, fg=definir_police_color(self.btn_color), 
             font=self.police, command=lambda: self.personnaliser(self.pageGG)
             ).pack(side="left",  padx=3, pady=3, anchor='n')
 
@@ -285,10 +285,10 @@ class API():
         self.page_conteneur2 = tk.Frame(self.pageBG, bg=self.bg_color)
         self.page_conteneur2.place(x=1510, y=65, anchor='ne')  
         self.ImageOC = tk.LabelFrame(
-            self.page_conteneur2, text="Image de l'OC sélectionné", font=self.police, height=687, width=620, bg=self.bg_color,
+            self.page_conteneur2, text="Image of the selected OC", font=self.police, height=687, width=620, bg=self.bg_color,
             borderwidth=3, border=3, fg=definir_police_color(self.bg_color))
         self.ImageOC.pack(side='top')
         tk.Button(
-            self.page_conteneur2, text="Copier le code", bg=self.btn_color, fg=definir_police_color(self.btn_color), 
+            self.page_conteneur2, text="Copy the code", bg=self.btn_color, fg=definir_police_color(self.btn_color), 
             font=self.police, command=lambda: copier_code(self.tableauGG)
             ).pack(side="bottom", padx=3, pady=3, anchor='center')
