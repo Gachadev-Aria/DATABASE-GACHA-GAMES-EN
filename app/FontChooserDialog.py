@@ -81,7 +81,7 @@ class FontChooserDialog:
     def on_ok(self):
         """Fonction qui valide le choix de la police."""
         self.result = [self.font_family.get(), self.font_size.get()]
-        fichier_config = "app/parametres/parametres.json"
+        fichier_config = dest_para_json_path
         try:
             with open(fichier_config, "w", encoding="utf-8") as f:
                 json.dump({"police et taille": self.result}, f, ensure_ascii=False, indent=4)
