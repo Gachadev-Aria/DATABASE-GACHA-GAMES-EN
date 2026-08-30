@@ -2,6 +2,7 @@
 import tkinter as tk
 from tkinter import ttk, font
 import json, os
+from app.config import dest_para_json_path
 
 class FontChooserDialog:
     """
@@ -19,8 +20,8 @@ class FontChooserDialog:
         self.top.transient(parent)
         self.top.grab_set()
 
-        self.parametres_path = os.path.join(os.path.dirname(__file__), "parametres", "parametres.json")
-
+        self.parametres_path =  dest_para_json_path
+        
         with open(self.parametres_path, "r", encoding="utf-8") as f:
             self.data = json.load(f)
 
