@@ -7,12 +7,13 @@ A software for saving your OC's from:
 - Gacha Nebula v1.6
 - Gacha Life + Gachaverse
 - Gacha Nebula v1.6
+- Minimuse
 
 The project started on 08/22/2026.
 
 ---
 
-## 📸 Preview
+## 📸 Preview (Before Minimuse)
 ![Capture d'écran](app/assets/Capture_d'écran_DATABASE.png)
 
 ---
@@ -37,7 +38,7 @@ The project started on 08/22/2026.
 This project was developped with the assistance of AI (Mistral AI).
 
 **The AI's contribution** inclut :
-- The creation of the class FontChooserDialog with some modifications of mine.
+- The creation of the class FontChooserDialog, Config with some modifications of mine.
 - a part on learning SQL
 - the resolution of errors not understood
 - Specific functionnalities
