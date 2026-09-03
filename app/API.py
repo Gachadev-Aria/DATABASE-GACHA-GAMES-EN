@@ -161,10 +161,10 @@ class API():
                 a: l'Id de l'OC supprimé.
             """
             ligne_select1 = tableauGG.selection()
-            a = tableauGG.item(ligne_select1, "values")[0]
             if not ligne_select1:
                 messagebox.showerror("Try again", "Select an OC to delete", icon='error')
                 return
+            a = tableauGG.item(ligne_select1, "values")[0]
             
             response = messagebox.askyesno("Really ?...", "Do you really want to delete this OC", icon="question")
 
@@ -195,7 +195,7 @@ class API():
             -(re)remplir les tk.Treeview tableauGC, tableauGN16, tableauGL2, tableauGL
             -mettre à jour la SQL Database.
             """
-            id = supprimer_OC(self.tableauGG, self.tableauGC, self.tableauGN16, self.tableauGL2, self.tableauGL)
+            id = supprimer_OC(self.tableauGG, self.tableauGC, self.tableauGN16, self.tableauGL2, self.tableauGL, self.tableauMM)
             self.DataBase.delete_db(id)
 
         def modifier_élément_oc():
