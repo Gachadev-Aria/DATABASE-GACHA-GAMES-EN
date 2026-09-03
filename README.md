@@ -38,7 +38,7 @@ The project started on 08/22/2026.
 This project was developped with the assistance of AI (Mistral AI).
 
 **The AI's contribution** inclut :
-- The creation of the class FontChooserDialog, Config with some modifications of mine.
+- The creation of classes FontChooserDialog, Config with my own modifications.
 - a part on learning SQL
 - the resolution of errors not understood
 - Specific functionnalities
